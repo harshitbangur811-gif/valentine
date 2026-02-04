@@ -91,7 +91,7 @@
 </style>
 </head>
 <body>
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic"  preload="auto" loop>
   <source src="song1.aac" type="audio/aac">
 </audio>
 
@@ -138,25 +138,34 @@ function ask() {
   `;
 }
 
+<script>
 function yes() {
-  document.getElementById("bgMusic").play();
+  const music = document.getElementById("bgMusic");
+
+  music.volume = 0.8;
+  music.play().catch(err => {
+    console.log("Music blocked:", err);
+  });
 
   document.getElementById("card").innerHTML = `
     <h1>You said YES 😭❤️</h1>
     <p>Tap the photo 💕</p>
 
-    <img src="HAKA.jpeg" class="photo blur" id="photo">
+    <img src="HAKA.jpg" class="photo blur" id="photo">
 
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
   setTimeout(() => {
-    document.getElementById("photo").onclick = () => {
-      document.getElementById("photo").classList.add("reveal");
+    const photo = document.getElementById("photo");
+    photo.onclick = () => {
+      photo.classList.add("reveal");
     };
   }, 300);
 }
 </script>
+
+
 
 </body>
 </html>
