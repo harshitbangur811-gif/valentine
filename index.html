@@ -104,33 +104,19 @@
   </div>
 
 <script>
-  function next() {
-    document.getElementById("card").innerHTML = `
-      <h1>Will you be my Valentine? ❤️</h1>
-      <button onclick="celebrate()">YES 💖</button>
-      <button onclick="celebrate()">OF COURSE 🥰</button>
-    `;
-  }
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.innerHTML = "❤️";
+  heart.style.position = "absolute";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (20 + Math.random() * 30) + "px";
+  heart.style.animation = "float 6s linear";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
 
-  function celebrate() {
-    document.getElementById("card").innerHTML = `
-      <h1>You just made me the happiest person 🥹❤️</h1>
-      <p>Happy Valentine’s Day 💐</p>
-    `;
-  }
-
-  // floating hearts
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (20 + Math.random() * 30) + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 400);
-</script>
-<script>
+/* Tap here → Valentine question */
 function ask() {
   document.getElementById("card").innerHTML = `
     <h1>Will you be my Valentine? ❤️</h1>
@@ -139,39 +125,30 @@ function ask() {
   `;
 }
 
-<script>
+/* YES → music + photo */
 function yes() {
   const card = document.getElementById("card");
 
-  // Update UI first
   card.innerHTML = `
     <h1>You said YES 😭❤️</h1>
     <p>Tap the photo 💕</p>
-
     <img src="HAKA.jpg" class="photo blur" id="photo">
-
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
-  // Play music AFTER DOM update
   const music = document.getElementById("bgMusic");
   music.volume = 0.8;
-
   setTimeout(() => {
-    music.play().catch(err => console.log("Music blocked:", err));
+    music.play().catch(e => console.log("Music blocked", e));
   }, 200);
 
-  // Reveal photo on click
   setTimeout(() => {
-    const photo = document.getElementById("photo");
-    photo.onclick = () => {
-      photo.classList.add("reveal");
+    document.getElementById("photo").onclick = () => {
+      document.getElementById("photo").classList.add("reveal");
     };
   }, 300);
 }
 </script>
-
-
 
 
 </body>
