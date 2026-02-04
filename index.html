@@ -65,6 +65,23 @@
   <meta charset="UTF-8">
   <title>For You ❤️</title>
   <style>
+    .blur {
+  filter: blur(12px);
+  transition: filter 0.6s ease;
+}
+
+.reveal {
+  filter: blur(0);
+}
+
+.hidden {
+  display: none;
+}
+
+.photo {
+  cursor: pointer;
+}
+
   body {
     margin: 0;
     height: 100vh;
@@ -140,14 +157,10 @@ function ask() {
 
 <script>
 function yes() {
-  const music = document.getElementById("bgMusic");
+  const card = document.getElementById("card");
 
-  music.volume = 0.8;
-  music.play().catch(err => {
-    console.log("Music blocked:", err);
-  });
-
-  document.getElementById("card").innerHTML = `
+  // Update UI first
+  card.innerHTML = `
     <h1>You said YES 😭❤️</h1>
     <p>Tap the photo 💕</p>
 
@@ -156,6 +169,15 @@ function yes() {
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
+  // Play music AFTER DOM update
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.8;
+
+  setTimeout(() => {
+    music.play().catch(err => console.log("Music blocked:", err));
+  }, 200);
+
+  // Reveal photo on click
   setTimeout(() => {
     const photo = document.getElementById("photo");
     photo.onclick = () => {
@@ -164,6 +186,7 @@ function yes() {
   }, 300);
 }
 </script>
+
 
 
 
