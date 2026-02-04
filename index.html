@@ -22,14 +22,13 @@
       border-radius: 25px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 90%;
     }
 
-    h1 {
-      color: #ff4d6d;
-    }
+    h1 { color: #ff4d6d; }
 
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       padding: 12px 25px;
       font-size: 18px;
       border: none;
@@ -37,10 +36,6 @@
       background: #ff4d6d;
       color: white;
       cursor: pointer;
-    }
-
-    button:hover {
-      transform: scale(1.1);
     }
 
     .photo {
@@ -52,20 +47,14 @@
       transition: filter 0.6s ease;
     }
 
-    .blur {
-      filter: blur(12px);
-    }
-
-    .reveal {
-      filter: blur(0);
-    }
+    .blur { filter: blur(12px); }
+    .reveal { filter: blur(0); }
   </style>
 </head>
 
 <body>
 
-<!-- AUDIO (MP3) -->
-<audio id="bgMusic">
+<audio id="bgMusic" preload="auto">
   <source src="song1.mp3" type="audio/mpeg">
 </audio>
 
@@ -76,7 +65,6 @@
 </div>
 
 <script>
-/* Step 1 */
 function ask() {
   document.getElementById("card").innerHTML = `
     <h1>Will you be my Valentine? ❤️</h1>
@@ -85,26 +73,28 @@ function ask() {
   `;
 }
 
-/* Step 2 */
 function yes() {
-  const card = document.getElementById("card");
-
-  card.innerHTML = `
+  document.getElementById("card").innerHTML = `
     <h1>You said YES 😭❤️</h1>
     <p>Tap the photo 💕</p>
+
     <img src="HAKA.jpeg" class="photo blur" id="photo">
+
+    <br>
+    <button onclick="playMusic()">Play music 🎶</button>
+
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
-  // ✅ DIRECT user-gesture audio play (THIS IS KEY)
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.8;
-  music.play();
-
-  // Blur → reveal
   document.getElementById("photo").onclick = () => {
     document.getElementById("photo").classList.add("reveal");
   };
+}
+
+function playMusic() {
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.8;
+  music.play();
 }
 </script>
 
