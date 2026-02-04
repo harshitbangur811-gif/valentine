@@ -91,12 +91,15 @@
 </style>
 </head>
 <body>
+  <audio id="bgMusic" loop>
+  <source src="song1.aac" type="audio/aac">
+</audio>
 
   <div class="card" id="card">
     <h1>Hey Love 💕</h1>
     <p>I have something special to ask you…</p>
-    <img src="us.jpg" class="photo">
-    <button onclick="next()">Tap here 💌</button>
+    <img src="HAKA.jpeg" class="photo">
+    <button onclick="ask()">Tap here 💌</button>
   </div>
 
 <script>
@@ -125,6 +128,34 @@
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
   }, 400);
+</script>
+<script>
+function ask() {
+  document.getElementById("card").innerHTML = `
+    <h1>Will you be my Valentine? ❤️</h1>
+    <button onclick="yes()">YES 💖</button>
+    <button onclick="yes()">OF COURSE 🥰</button>
+  `;
+}
+
+function yes() {
+  document.getElementById("bgMusic").play();
+
+  document.getElementById("card").innerHTML = `
+    <h1>You said YES 😭❤️</h1>
+    <p>Tap the photo 💕</p>
+
+    <img src="HAKA.jpeg" class="photo blur" id="photo">
+
+    <p>Happy Valentine’s Day ❤️</p>
+  `;
+
+  setTimeout(() => {
+    document.getElementById("photo").onclick = () => {
+      document.getElementById("photo").classList.add("reveal");
+    };
+  }, 300);
+}
 </script>
 
 </body>
