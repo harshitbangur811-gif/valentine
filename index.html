@@ -22,10 +22,11 @@
       border-radius: 25px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: pop 1s ease;
     }
 
-    h1 { color: #ff4d6d; }
+    h1 {
+      color: #ff4d6d;
+    }
 
     button {
       margin-top: 20px;
@@ -36,74 +37,46 @@
       background: #ff4d6d;
       color: white;
       cursor: pointer;
-      transition: transform 0.2s;
     }
 
-    button:hover { transform: scale(1.1); }
+    button:hover {
+      transform: scale(1.1);
+    }
 
     .photo {
       width: 220px;
       margin-top: 20px;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      animation: fadeIn 2s ease;
       cursor: pointer;
+      transition: filter 0.6s ease;
     }
 
-    .blur { filter: blur(12px); transition: filter 0.6s ease; }
-    .reveal { filter: blur(0); }
-
-    @keyframes pop {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
+    .blur {
+      filter: blur(12px);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .heart {
-      position: absolute;
-      color: rgba(255, 0, 85, 0.5);
-      font-size: 24px;
-      animation: float 6s linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh); opacity: 0; }
+    .reveal {
+      filter: blur(0);
     }
   </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" preload="auto" loop>
-  <source src="song1.aac" type="audio/aac">
+<!-- AUDIO (MP3) -->
+<audio id="bgMusic">
+  <source src="song1.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card" id="card">
   <h1>Hey Love 💕</h1>
   <p>I have something special to ask you…</p>
-  <img src="HAKA.jpeg" class="photo">
   <button onclick="ask()">Tap here 💌</button>
 </div>
 
 <script>
-/* Floating hearts */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (20 + Math.random() * 30) + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 400);
-
-/* Tap here */
+/* Step 1 */
 function ask() {
   document.getElementById("card").innerHTML = `
     <h1>Will you be my Valentine? ❤️</h1>
@@ -112,7 +85,7 @@ function ask() {
   `;
 }
 
-/* YES */
+/* Step 2 */
 function yes() {
   const card = document.getElementById("card");
 
@@ -123,10 +96,12 @@ function yes() {
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
+  // ✅ DIRECT user-gesture audio play (THIS IS KEY)
   const music = document.getElementById("bgMusic");
   music.volume = 0.8;
   music.play();
 
+  // Blur → reveal
   document.getElementById("photo").onclick = () => {
     document.getElementById("photo").classList.add("reveal");
   };
@@ -135,4 +110,3 @@ function yes() {
 
 </body>
 </html>
-
