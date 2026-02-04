@@ -160,53 +160,28 @@
     <img src="HAKA.jpeg" class="photo">
     <button onclick="ask()">Tap here 💌</button>
   </div>
-
 <script>
-/* Floating hearts */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.innerHTML = "❤️";
-  heart.style.position = "absolute";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (20 + Math.random() * 30) + "px";
-  heart.style.animation = "float 6s linear";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}, 400);
-
-/* Tap here → Valentine question */
-function ask() {
-  document.getElementById("card").innerHTML = `
-    <h1>Will you be my Valentine? ❤️</h1>
-    <button onclick="yes()">YES 💖</button>
-    <button onclick="yes()">OF COURSE 🥰</button>
-  `;
-}
-
-/* YES → music + photo */
 function yes() {
   const card = document.getElementById("card");
 
   card.innerHTML = `
     <h1>You said YES 😭❤️</h1>
     <p>Tap the photo 💕</p>
-    <img src="HAKA.jpg" class="photo blur" id="photo">
+    <img src="HAKA.jpeg" class="photo blur" id="photo">
     <p>Happy Valentine’s Day ❤️</p>
   `;
 
   const music = document.getElementById("bgMusic");
   music.volume = 0.8;
-  setTimeout(() => {
-    music.play().catch(e => console.log("Music blocked", e));
-  }, 200);
+  music.play(); // DIRECT play — no timeout
 
-  setTimeout(() => {
-    document.getElementById("photo").onclick = () => {
-      document.getElementById("photo").classList.add("reveal");
-    };
-  }, 300);
+  const photo = document.getElementById("photo");
+  photo.onclick = () => {
+    photo.classList.add("reveal");
+  };
 }
 </script>
+
 
 
 </body>
