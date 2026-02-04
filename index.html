@@ -3,67 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>For You ❤️</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Comic Sans MS', cursive;
-      overflow: hidden;
-    }
-
-    .card {
-      background: white;
-      padding: 40px;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: pop 1s ease;
-    }
-
-    h1 {
-      color: #ff4d6d;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 12px 25px;
-      font-size: 18px;
-      border: none;
-      border-radius: 30px;
-      background: #ff4d6d;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes pop {
-      from { transform: scale(0); }
-      to { transform: scale(1); }
-    }
-
-    .heart {
-      position: absolute;
-      color: rgba(255, 0, 85, 0.5);
-      font-size: 24px;
-      animation: float 6s linear infinite;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(100vh); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-10vh); opacity: 0; }
-    }
-<head>
-  <meta charset="UTF-8">
-  <title>For You ❤️</title>
 
   <style>
     body {
@@ -86,9 +25,7 @@
       animation: pop 1s ease;
     }
 
-    h1 {
-      color: #ff4d6d;
-    }
+    h1 { color: #ff4d6d; }
 
     button {
       margin-top: 20px;
@@ -102,9 +39,7 @@
       transition: transform 0.2s;
     }
 
-    button:hover {
-      transform: scale(1.1);
-    }
+    button:hover { transform: scale(1.1); }
 
     .photo {
       width: 220px;
@@ -115,14 +50,8 @@
       cursor: pointer;
     }
 
-    .blur {
-      filter: blur(12px);
-      transition: filter 0.6s ease;
-    }
-
-    .reveal {
-      filter: blur(0);
-    }
+    .blur { filter: blur(12px); transition: filter 0.6s ease; }
+    .reveal { filter: blur(0); }
 
     @keyframes pop {
       from { transform: scale(0); }
@@ -150,17 +79,40 @@
 </head>
 
 <body>
-  <audio id="bgMusic"  preload="auto" loop>
+
+<audio id="bgMusic" preload="auto" loop>
   <source src="song1.aac" type="audio/aac">
 </audio>
 
-  <div class="card" id="card">
-    <h1>Hey Love 💕</h1>
-    <p>I have something special to ask you…</p>
-    <img src="HAKA.jpeg" class="photo">
-    <button onclick="ask()">Tap here 💌</button>
-  </div>
+<div class="card" id="card">
+  <h1>Hey Love 💕</h1>
+  <p>I have something special to ask you…</p>
+  <img src="HAKA.jpeg" class="photo">
+  <button onclick="ask()">Tap here 💌</button>
+</div>
+
 <script>
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (20 + Math.random() * 30) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 400);
+
+/* Tap here */
+function ask() {
+  document.getElementById("card").innerHTML = `
+    <h1>Will you be my Valentine? ❤️</h1>
+    <button onclick="yes()">YES 💖</button>
+    <button onclick="yes()">OF COURSE 🥰</button>
+  `;
+}
+
+/* YES */
 function yes() {
   const card = document.getElementById("card");
 
@@ -173,16 +125,14 @@ function yes() {
 
   const music = document.getElementById("bgMusic");
   music.volume = 0.8;
-  music.play(); // DIRECT play — no timeout
+  music.play();
 
-  const photo = document.getElementById("photo");
-  photo.onclick = () => {
-    photo.classList.add("reveal");
+  document.getElementById("photo").onclick = () => {
+    document.getElementById("photo").classList.add("reveal");
   };
 }
 </script>
 
-
-
 </body>
 </html>
+
